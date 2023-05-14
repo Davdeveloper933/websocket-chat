@@ -19,10 +19,11 @@ io.on('connection', socket => {
       //check socket io online users
   if (!$ipsConnected.hasOwnProperty($liveIpAddress)) {
     $ipsConnected[$liveIpAddress] = 1;
-    flags++;
+    ++flags;
  }
-   //socket io real time online users example
-   socket.emit('socket_io_counter', flags);
+
+        //socket io real time online users example
+        socket.emit('socket_io_counter', flags);
  console.log("Good Luck, client is connected");
  console.log($liveIpAddress)
     
