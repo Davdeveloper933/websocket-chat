@@ -6,17 +6,17 @@ let server = require('http').createServer(app);
 const io = require('socket.io')(server);
 server.listen(3000);
 
+const sockets = io.sockets;
+
 app.get('/',function(req,res) {
     res.sendFile(__dirname+'/client/index.html');
 });
 
 app.use('/client',express.static(__dirname+'/client'));
 
-io.on('connection', async (socket) => {
+io.on('connection',async (socket) => {
     var $liveIpAddress = socket.handshake.address;
     const count = io.engine.clientsCount;
-    const count2 = io.sockets.size;
-    const sockets = await io.fetchSockets();
 
       //check socket io online users
 //   if (!$ipsConnected.hasOwnProperty($liveIpAddress)) {
@@ -27,7 +27,7 @@ io.on('connection', async (socket) => {
 //  }
  console.log("Good Luck, client is connected");
  socket.emit('socket_io_counter', $liveIpAddress);
- console.log(count,count2,sockets)
+ console.log(count,socket.handshake)
     
     socket.emit('message', 'Привет, народ!')
     // io.emit('message', 'Привет, народ!') //Всем подключенным клиентам
