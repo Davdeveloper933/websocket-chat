@@ -26,8 +26,8 @@ io.on('connection',async (socket) => {
 //             // socket.emit('socket_io_counter', flags);
 //  }
  console.log("Good Luck, client is connected");
- socket.emit('socket_io_counter', $liveIpAddress);
- console.log(count,socket.handshake)
+ socket.emit('socket_io_counter', count);
+ console.log(io.engine.clients)
     
     socket.emit('message', 'Привет, народ!')
     // io.emit('message', 'Привет, народ!') //Всем подключенным клиентам
