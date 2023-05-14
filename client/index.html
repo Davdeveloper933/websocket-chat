@@ -52,6 +52,10 @@ chatForm.onsubmit = (e)=>{
         socket.emit('sendMsgToServer', chatInput.value);
         chatInput.value = "";
 	}
+
+  socket.on('user joined', (data) => {
+    console.log(`${data.username} joined`)
+})
         </script>
 </body>
 </html>

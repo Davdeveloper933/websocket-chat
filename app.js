@@ -12,7 +12,7 @@ app.get('/',function(req,res) {
 app.use('/client',express.static(__dirname+'/client'));
 
 io.on('connection', socket => {
-    console.log(socket.id)
+    console.log(socket.rooms)
     
     socket.emit('message', 'Привет, народ!')
     // io.emit('message', 'Привет, народ!') //Всем подключенным клиентам
