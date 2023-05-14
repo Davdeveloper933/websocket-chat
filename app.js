@@ -5,8 +5,6 @@ let app = express();
 let server = require('http').createServer(app);
 const io = require('socket.io')(server);
 server.listen(3000);
-const count = io.engine.clientsCount;
-const count2 = io.of("/").sockets.size;
 
 app.get('/',function(req,res) {
     res.sendFile(__dirname+'/client/index.html');
@@ -14,8 +12,12 @@ app.get('/',function(req,res) {
 
 app.use('/client',express.static(__dirname+'/client'));
 
-io.on('connection', socket => {
+io.on('connection', async (socket) => {
     var $liveIpAddress = socket.handshake.address;
+    const count = io.engine.clientsCount;
+    const count2 = io.sockets.size;
+    const sockets = await io.fetchSockets();
+
       //check socket io online users
 //   if (!$ipsConnected.hasOwnProperty($liveIpAddress)) {
 //     $ipsConnected[$liveIpAddress] = 1;
@@ -25,7 +27,7 @@ io.on('connection', socket => {
 //  }
  console.log("Good Luck, client is connected");
  socket.emit('socket_io_counter', $liveIpAddress);
- console.log(count2)
+ console.log(count,count2,sockets)
     
     socket.emit('message', 'Привет, народ!')
     // io.emit('message', 'Привет, народ!') //Всем подключенным клиентам
