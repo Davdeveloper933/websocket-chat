@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="box"><div>Chat</div>
+    <div id="online-user-counter"></div>
     <div id="chat-text" class="chatBox">&nbsp;</div>
     <form id="chat-form">
         <input id="chat-input" style="width: 30%; height: 30px;" autocomplete="off" type="text"> 
@@ -20,6 +21,7 @@
     var chatText = document.getElementById('chat-text');
         var chatInput = document.getElementById('chat-input');
         var chatForm = document.getElementById('chat-form');
+        var onlineUserCounter = document.getElementById('online-user-counter');
     
         var socket = io();
 
@@ -37,7 +39,10 @@
             });
 
         socket.on('connect', () => {
-  console.log(socket.rooms) // ojIckSD2jqNzOqIrAGzL
+})
+
+socket.on('socket_io_counter',(flags)=>{
+          onlineUserCounter.innerHTML = 'Users online: '+ flags;
 })
 
 socket.on('message', message => {
