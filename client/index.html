@@ -38,9 +38,10 @@
                       
             });
 
-socket.on('socket_io_counter',(flags)=>{
-          onlineUserCounter.innerHTML = flags;
-})
+
+  socket.on('socket_io_counter',(flags)=>{
+            onlineUserCounter.innerHTML = flags;
+  })
 
 socket.on('message', message => {
   console.log(message) // Привет, народ!

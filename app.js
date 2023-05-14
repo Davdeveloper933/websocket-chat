@@ -4,6 +4,7 @@ let app = express();
 
 let server = require('http').createServer(app);
 const io = require('socket.io')(server);
+server.listen(3000);
 
 var flags = 0;
 var $ipsConnected = [];
@@ -19,12 +20,13 @@ io.on('connection', socket => {
       //check socket io online users
   if (!$ipsConnected.hasOwnProperty($liveIpAddress)) {
     $ipsConnected[$liveIpAddress] = 1;
-    ++flags;
+    flags++;
             //socket io real time online users example
-            socket.emit('socket_io_counter', flags);
+            // socket.emit('socket_io_counter', flags);
  }
  console.log("Good Luck, client is connected");
- console.log($liveIpAddress)
+ socket.emit('socket_io_counter', flags);
+ console.log(flags)
     
     socket.emit('message', 'Привет, народ!')
     // io.emit('message', 'Привет, народ!') //Всем подключенным клиентам
@@ -47,6 +49,3 @@ io.on('connection', socket => {
     }
  });
 })
-
-
-server.listen(3000);
